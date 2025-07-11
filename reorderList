@@ -1,0 +1,42 @@
+private static ListNode findMiddle(ListNode head) {
+        ListNode slow = head, fast = head.next;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    private static ListNode reverseList(ListNode head) {
+        ListNode curr = head;
+        ListNode prev = null;
+        ListNode next = null;
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+    private static ListNode mergeLists(ListNode head1, ListNode head2) {
+        ListNode dummy, curr = new ListNode();
+        dummy = curr;
+        while(head1 != null && head2 != null ) {
+            curr.next = head1;
+            head1 = head1.next;
+            curr = curr.next;
+            curr.next = head2;
+            head2 = head2.next;
+            curr = curr.next; 
+        }
+        if(head1 != null) {
+            curr.next = head1;
+        }
+        return dummy.next;
+    }
+    public void reorderList(ListNode head) {
+        ListNode mid = findMiddle(head);
+        ListNode secondHalf = reverseList(mid.next);
+        mid.next = null;
+        head =  mergeLists(head, secondHalf);
+    }
