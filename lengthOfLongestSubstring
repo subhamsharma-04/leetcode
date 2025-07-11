@@ -1,0 +1,19 @@
+public int lengthOfLongestSubstring(String s) {
+        int i = 0, j =0, mxm = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        while(j < s.length()) {
+            if(!map.containsKey(s.charAt(j))) {
+                map.put(s.charAt(j), 1);
+                j++;
+                mxm = Math.max(mxm, j-i);
+            } else{
+                while(map.containsKey(s.charAt(j))){
+                    map.remove(s.charAt(i));
+                    i++;
+                }
+                map.put(s.charAt(j), 1);
+                j++;
+            }
+        }
+        return mxm;
+    }
