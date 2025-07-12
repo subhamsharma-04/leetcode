@@ -17,3 +17,22 @@ public int lengthOfLongestSubstring(String s) {
         }
         return mxm;
     }
+
+
+Better 
+
+public int lengthOfLongestSubstring(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int ans = 0, start = 0, end = 0;
+        while(end < s.length()){
+            if(!map.containsKey(s.charAt(end))) {
+                map.put(s.charAt(end),1);
+                end++;
+                ans = Math.max(ans, end - start);
+            } else{
+                map.remove(s.charAt(start));
+                start++;
+            }
+        }
+        return ans;
+    }
